@@ -1,4 +1,5 @@
 interface Endpoint{
+  _id:string;
   method:string;
   path:string;
   description:string |null;

@@ -91,7 +91,7 @@ const ApiPublish = () => {
       setendpoints(
         editabledata.endpoints.map((ep) => ({
           ...ep,
-          id: ep._id ?? crypto.randomUUID(),
+          id: ep.id ?? crypto.randomUUID(),
           method: (ep.method || "GET").toUpperCase(),
         })),
       );
