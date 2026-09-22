@@ -31,7 +31,7 @@ export default function SigninPage() {
         body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
+      if (response.success) {
         toast("Login successful");
         setTimeout(() => {
           router.push("/");

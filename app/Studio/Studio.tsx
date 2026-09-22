@@ -37,12 +37,11 @@ const Studio = () => {
       try {
         const response = await apiFetch("/api/studio");
 
-        const result = await response.json();
-        if (!response.ok) {
+         if (!response.success) {
           setdata([]);
           return;
         }
-        setdata(result.api ?? []);
+        setdata(response.api ?? []);
       } catch (err) {
         console.log(err);
       }    
@@ -93,7 +92,7 @@ const Studio = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100">
+    <div className="min-h-screen bg-slate-100 ">
       {notification && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 px-4">
           <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-2xl">
@@ -144,8 +143,8 @@ const Studio = () => {
         </Link>
       </div>
 
-      <div className="m-5 rounded-2xl border border-blue-200 bg-white/50 p-4 sm:m-8 sm:p-5 md:m-14">
-        <div className="flex flex-wrap justify-center gap-4 md:justify-start">
+      <div className=" flex justify-center  m-5 rounded-2xl border border-blue-200 bg-white/50 p-4 sm:m-8 sm:p-5 md:m-14">
+        <div className="grid grid-cols-3 mt-3 justify-center gap-4 md:justify-start">
           {data.length === 0 && (
             <div className="flex mx-auto">
               <h2 className="text-lg font-semibold text-slate-600 ">You haven't published any API yet</h2>

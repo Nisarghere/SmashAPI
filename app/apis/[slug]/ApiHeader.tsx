@@ -41,16 +41,13 @@ const ApiInfo = ({
   useEffect(() => {
     async function getSubApi() {
       try {
-        const data = await apiFetch(
-          `/api/${slug}/apiPreview`,
-        );
+        const data = await apiFetch(`/api/${slug}/apiPreview`);
 
         setApiKeyPreview(data.apiKeyPreview ?? null);
         setSubscriptionId(data.subscriptionId ?? null);
-        
-      } catch (error:any) {
-        if (error.message.startsWith("401")){
-          return
+      } catch (error: any) {
+        if (error.message.startsWith("401")) {
+          return;
         }
       }
     }
@@ -62,12 +59,9 @@ const ApiInfo = ({
     try {
       setLoading(true);
 
-      const data = await apiFetch(
-        `/api/${slug}/subscribe`,
-        {
-          method: "POST",
-        },
-      );
+      const data = await apiFetch(`/api/${slug}/subscribe`, {
+        method: "POST",
+      });
 
       setApiKey(data.apiKey);
       setSubscriptionId(data.id);
@@ -77,7 +71,7 @@ const ApiInfo = ({
       }
     } catch (error: any) {
       if (error.message.startsWith("401")) {
-         setSubscriptionId(null)
+        setSubscriptionId(null);
         return;
       }
       toast.error(error.message || "Something went wrong");
@@ -92,23 +86,14 @@ const ApiInfo = ({
     try {
       setLoading(true);
 
-      const response = await fetch(
-        `/api/${slug}/${subscriptionId}/rotate`,
-        {
-          method: "PATCH",
-          credentials: "include",
-        },
-      );
+      const response = await apiFetch(`/api/${slug}/${subscriptionId}/rotate`, {
+        method: "PATCH",
+      });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Rotation failed");
+      if (response.success) {
+        setApiKey(response.apiKey);
+        toast.success("API key rotated successfully");
       }
-
-      setApiKey(data.apiKey);
-
-      toast.success("API key rotated successfully");
     } catch (error: any) {
       toast.error(error.message || "Rotation failed");
     } finally {
@@ -122,23 +107,16 @@ const ApiInfo = ({
     try {
       setLoading(true);
 
-      const response = await apiFetch(
-        `/api/${slug}/${subscriptionId}/revoke`,
-        {
-          method: "PATCH",
-         },
-      );
+      const response = await apiFetch(`/api/${slug}/${subscriptionId}/revoke`, {
+        method: "PATCH",
+      });
 
-      const data = await response.json();
+      if (response.success) {
+        setApiKey(null);
+        setApiKeyPreview(null);
 
-      if (!response.ok) {
-        throw new Error(data.message || "Revoke failed");
+        toast.success("API key revoked");
       }
-
-      setApiKey(null);
-      setApiKeyPreview(null);
-
-      toast.success("API key revoked");
     } catch (error: any) {
       toast.error(error.message || "Revoke failed");
     } finally {

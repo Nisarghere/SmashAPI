@@ -38,13 +38,13 @@ export default function SignupPage() {
       const data = await response.json();
       console.log(data);
 
-      if (response.ok) {
+      if (response.success) {
         toast("signup successful");
       } else {
         toast(data.message || "SignUp failed"); // show backend's actual error if it sends one
       }
     } catch (error) {
-      console.log("something went wrong", error);
+      console.log("something went wrong" , error);
     }
   }
 

@@ -48,7 +48,8 @@ const Explore = () => {
     async function handleApiResponse() {
       try {
         const response = await apiFetch(`/api/`);
-        if (!response.ok) {
+        
+        if (!response.success) {
           setdata(null);
         }
 
