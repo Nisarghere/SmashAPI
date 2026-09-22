@@ -5,6 +5,7 @@ import { Globe } from "lucide-react";
 import { useRouter } from "next/navigation";
 import APicard from "./APicard";
 import { ClockFading } from "lucide-react";
+import { apiFetch } from "../lib/apiFetch";
 
 interface Endpoint {
   _id: string;
@@ -46,11 +47,7 @@ const Explore = () => {
   useEffect(() => {
     async function handleApiResponse() {
       try {
-        const response = await fetch("http://localhost:5000/api/", {
-          method: "GET",
-          credentials: "include",
-        });
-
+        const response = await apiFetch(`/api/`);
         if (!response.ok) {
           setdata(null);
         }

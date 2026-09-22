@@ -1,12 +1,10 @@
 export async function apiFetch(url: string, options: RequestInit = {}) {
-  const response = await fetch(url, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
     ...options,
     credentials: "include",
   });
 
-  // if (response.status === 401) {
-  //   window.location.href = "/signin";
-  // }
+   
   if (!response.ok) {
     const errorText = await response.json();
  

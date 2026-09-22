@@ -71,7 +71,7 @@ const ApiPublish = () => {
 
     async function handleEdit() {
       try {
-        const data = await apiFetch(`http://localhost:5000/api/${editQuery}`);
+        const data = await apiFetch(`/api/${editQuery}`);
         seteditabledata(data.api);
       } catch (err) {
         console.log("Something went wrong while loading the API:", err);
@@ -112,7 +112,7 @@ const ApiPublish = () => {
 
     try {
       const data = await apiFetch(
-        `http://localhost:5000/api/publish/update/${editQuery}`,
+        `/api/publish/update/${editQuery}`,
         {
           method: "PATCH",
           body: formData,
@@ -154,7 +154,7 @@ const ApiPublish = () => {
     if (logo) formData.append("logo", logo);
 
     try {
-      const response = await apiFetch("http://localhost:5000/api/publish", {
+      const response = await apiFetch("/api/publish", {
         method: "POST",
         body: formData,
       });

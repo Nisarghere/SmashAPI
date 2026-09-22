@@ -36,9 +36,7 @@ export default function Navbar() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const response = await apiFetch("http://localhost:5000/auth/me", {
-          method: "GET",
-        });
+        const response = await apiFetch("/auth/me");
 
         if (response.success) {
           setisLoggedIn(true);
@@ -53,7 +51,7 @@ export default function Navbar() {
 
   async function handleLogout() {
     try {
-      const response = await apiFetch("http://localhost:5000/auth/logout", {
+      const response = await apiFetch("/auth/logout", {
         method: "POST",
       });
 

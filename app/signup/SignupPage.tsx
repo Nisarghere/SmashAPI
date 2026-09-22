@@ -3,6 +3,7 @@
 import { useState } from "react";
 import AuthLayout from "../components/AuthLayout";
 import { ToastContainer, toast } from "react-toastify";
+import { apiFetch } from "../lib/apiFetch";
 
 interface signupPayload {
   name: string;
@@ -27,10 +28,9 @@ export default function SignupPage() {
     const payload: signupPayload = { name, email, password };
 
     try {
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await apiFetch("/auth/register", {
         method: "POST",
-        credentials: "include",
-        headers: {
+         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),

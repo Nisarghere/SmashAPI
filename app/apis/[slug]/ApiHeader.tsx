@@ -42,7 +42,7 @@ const ApiInfo = ({
     async function getSubApi() {
       try {
         const data = await apiFetch(
-          `http://localhost:5000/api/${slug}/apiPreview`,
+          `/api/${slug}/apiPreview`,
         );
 
         setApiKeyPreview(data.apiKeyPreview ?? null);
@@ -63,7 +63,7 @@ const ApiInfo = ({
       setLoading(true);
 
       const data = await apiFetch(
-        `http://localhost:5000/api/${slug}/subscribe`,
+        `/api/${slug}/subscribe`,
         {
           method: "POST",
         },
@@ -93,7 +93,7 @@ const ApiInfo = ({
       setLoading(true);
 
       const response = await fetch(
-        `http://localhost:5000/api/${slug}/${subscriptionId}/rotate`,
+        `/api/${slug}/${subscriptionId}/rotate`,
         {
           method: "PATCH",
           credentials: "include",
@@ -122,12 +122,11 @@ const ApiInfo = ({
     try {
       setLoading(true);
 
-      const response = await fetch(
-        `http://localhost:5000/api/${slug}/${subscriptionId}/revoke`,
+      const response = await apiFetch(
+        `/api/${slug}/${subscriptionId}/revoke`,
         {
           method: "PATCH",
-          credentials: "include",
-        },
+         },
       );
 
       const data = await response.json();

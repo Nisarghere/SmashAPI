@@ -9,7 +9,7 @@ const ApiDetailsPage = async ({ params }: { params: { slug: string } }) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  const response = await fetch(`http://localhost:5000/api/${slug}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${slug}`, {
     method: "GET",
     headers: {
       Cookie: `token=${token}`,
@@ -23,7 +23,7 @@ const ApiDetailsPage = async ({ params }: { params: { slug: string } }) => {
 
  
   const openapiResponse = await fetch(
-    `http://localhost:5000/api/openapi/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/openapi/${slug}`,
     {
       method: "GET",
       headers: {
@@ -31,6 +31,7 @@ const ApiDetailsPage = async ({ params }: { params: { slug: string } }) => {
       },
     },
   );
+  
   if (!openapiResponse.ok) {
     throw new Error("Failed to fetch OpenAPI document");
   }

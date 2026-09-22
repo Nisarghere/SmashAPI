@@ -1,8 +1,7 @@
 "use client";
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import SearchStudio from "./SearchStudio";
-import { useRouter } from "next/navigation";
+ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { apiFetch } from "../lib/apiFetch";
 
@@ -36,10 +35,7 @@ const Studio = () => {
   useEffect(() => {
     async function handleApiResponse() {
       try {
-        const response = await fetch("http://localhost:5000/api/studio", {
-          method: "GET",
-          credentials: "include",
-        });
+        const response = await apiFetch("/api/studio");
 
         const result = await response.json();
         if (!response.ok) {
@@ -61,7 +57,7 @@ const Studio = () => {
   async function DeleteApi(apiId: string) {
     try {
       const response = await apiFetch(
-        `http://localhost:5000/api/studio/delete/${apiId}`,
+        `/api/studio/delete/${apiId}`,
         {
           method: "DELETE",
         },

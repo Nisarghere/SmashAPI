@@ -5,6 +5,7 @@ import AuthLayout from "../components/AuthLayout";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { apiFetch } from "../lib/apiFetch";
 interface SigninPayload {
   email: string;
   password: string;
@@ -21,10 +22,9 @@ export default function SigninPage() {
     const payload: SigninPayload = { email, password };
 
     try {
-      const response = await fetch("http://localhost:5000/auth/login", {
+      const response = await apiFetch("/auth/login", {
         method: "POST",
-        credentials: "include",
-        headers: {
+         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
