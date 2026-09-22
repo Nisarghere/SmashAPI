@@ -88,7 +88,7 @@ const Studio = () => {
   }
 
   function handleEdit(id: string) {
-    router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/Publish?edit=${id}`);
+    router.push(`/Publish?edit=${id}`);
   }
 
   return (
