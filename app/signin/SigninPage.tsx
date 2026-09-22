@@ -22,26 +22,23 @@ export default function SigninPage() {
     const payload: SigninPayload = { email, password };
 
     try {
+      console.log(process.env.NEXT_PUBLIC_API_URL);
       const response = await apiFetch("/auth/login", {
         method: "POST",
-         headers: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         toast("Login successful");
         setTimeout(() => {
           router.push("/");
         }, 2000);
-      } else {
-        toast(data.message || "Login failed"); // show backend's actual error if it sends one
       }
-    } catch (error) {
-      console.log("something went wrong", error);
+    } catch (error: any) {
+      toast(error.message || "Login failed");
     }
   }
 

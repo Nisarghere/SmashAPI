@@ -52,8 +52,7 @@ const Explore = () => {
           setdata(null);
         }
 
-        const data = await response.json();
-        setdata(data);
+         setdata(response);
         setloading(false);
       } catch (err) {
         console.log(err);
