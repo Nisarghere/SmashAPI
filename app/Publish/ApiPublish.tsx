@@ -64,7 +64,7 @@ const ApiPublish = () => {
   const searchParams = useSearchParams();
 
   const editQuery = searchParams.get("edit");
-  const isEditing = !!editQuery;
+   const isEditing = !!editQuery;
 
   useEffect(() => {
     if (!isEditing) return;
@@ -191,8 +191,7 @@ const ApiPublish = () => {
       console.log("Somethign went wrong : ", err);
     }
   }
-  console.log(editabledata?.endpoints);
-  function AddPoint() {
+   function AddPoint() {
     setendpoints((prev) => [
       ...prev,
       {

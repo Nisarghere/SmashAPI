@@ -4,6 +4,7 @@ import { useState } from "react";
 import AuthLayout from "../components/AuthLayout";
 import { ToastContainer, toast } from "react-toastify";
 import { apiFetch } from "../lib/apiFetch";
+import { useRouter } from "next/navigation";
 
 interface signupPayload {
   name: string;
@@ -16,6 +17,7 @@ export default function SignupPage() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [ConfirmPasswd, setConfirmPasswd] = useState("");
+  const router = useRouter();
 
   async function HandleSignUp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,21 +32,26 @@ export default function SignupPage() {
     try {
       const response = await apiFetch("/auth/register", {
         method: "POST",
-         headers: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
-      const data = await response.json();
-      console.log(data);
 
       if (response.success) {
         toast("signup successful");
+        setTimeout(() => {
+          router.push("/signin");
+        }, 2000);
       } else {
-        toast(data.message || "SignUp failed"); // show backend's actual error if it sends one
+        toast(response.message || "SignUp failed"); // show backend's actual error if it sends one
       }
-    } catch (error) {
-      console.log("something went wrong" , error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong");
+      }
     }
   }
 
